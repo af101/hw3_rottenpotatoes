@@ -22,8 +22,9 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  When I check the following ratings: R,PG
-  And  I uncheck the following ratings: G,PG-13
+  When I check "ratings_R"
+  And  I check "ratings_PG"
+  And  I uncheck the following ratings: G,PG-13,NC-17
   And  I press "ratings_submit"
 
   Then I should see these movies: "The Terminator","When Harry Met Sally","Amelie","The Incredibles","Raiders of the Lost Ark"

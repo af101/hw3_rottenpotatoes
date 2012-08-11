@@ -25,7 +25,7 @@ end
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
 
-When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
+Given /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   rating_list.split(",").each do |x|
     x.gsub!(/\"/,'')
     if(uncheck)
