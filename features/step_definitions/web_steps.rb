@@ -102,7 +102,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then /^(?:|I )should see "([^\"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)
   else
@@ -120,7 +120,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
   else
@@ -138,7 +138,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+Then /^the "([^\"]*)" field(?: within (.*))? should contain "([^\"]*)"$/ do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
@@ -150,7 +150,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field
   end
 end
 
-Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+Then /^the "([^\"]*)" field(?: within (.*))? should not contain "([^\"]*)"$/ do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
@@ -162,7 +162,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |f
   end
 end
 
-Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
+Then /^the "([^\"]*)" field should have the error "([^\"]*)"$/ do |field, error_message|
   element = find_field(field)
   classes = element.find(:xpath, '..')[:class].split(' ')
 
@@ -193,7 +193,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   end
 end
 
-Then /^the "([^"]*)" field should have no error$/ do |field|
+Then /^the "([^\"]*)" field should have no error$/ do |field|
   element = find_field(field)
   classes = element.find(:xpath, '..')[:class].split(' ')
   if classes.respond_to? :should
@@ -205,7 +205,7 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
+Then /^the "([^\"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
   with_scope(parent) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
@@ -216,7 +216,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
+Then /^the "([^\"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
   with_scope(parent) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
@@ -226,7 +226,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -240,8 +240,8 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else
