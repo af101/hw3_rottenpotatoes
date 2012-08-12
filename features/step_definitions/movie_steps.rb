@@ -17,7 +17,7 @@ end
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   regexp=/#{e1}.*#{e2}/m
-  page.body =~ regexp
+  page.body.should =~ regexp
   #  page.content  is the entire content of the page as a string.
 end
 
@@ -40,7 +40,7 @@ Given /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
 end
 
 When /I (un)?check all the ratings/ do |un|
-  step %{I #{un}check the following ratings: #{Movie.all_ratings*","}}
+  step %{I #{un}check the following ratings: #{Movie.all_ratings * ","}}
 end
 
 Then /I should see these movies: (.*)/ do |csv_movie_list|
@@ -50,11 +50,11 @@ Then /I should see these movies: (.*)/ do |csv_movie_list|
 end
 
 Then /I should see no movie at all/ do
-  !(page.body =~ /More about/)
+  page.body.should_not =~ /More about/
 end
 
 Then /I should see all of the movies/ do
-  (page.body=~/More about/)==Movie.all.length
+  page.body.scan(/More about/).length.should == Movie.all.length
 end
 
 Then /I should not see these movies: (.*)/ do |csv_movie_list|

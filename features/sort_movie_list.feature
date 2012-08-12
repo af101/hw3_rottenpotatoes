@@ -23,11 +23,13 @@ Background: movies have been added to database
 
 Scenario: sort movies alphabetically
   When I check all the ratings
+  And  I press "ratings_submit"
   And  I follow "Movie Title"
   Then I should see "Aladdin" before "Terminator"
 
 Scenario: sort movies in increasing order of release date
   When I check all the ratings
+  And  I press "ratings_submit"
   And  I follow "Release Date"
   Then I should see "Terminator" before "Aladdin"
 
